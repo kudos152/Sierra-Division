@@ -17,29 +17,34 @@ miro.onReady(() => {
     const linkA = widgetA.viewLink;
     const linkB = widgetB.viewLink;
 
-    // Prepare the updates for each widget
-    const updates = [];
+    // Check if the widgets support the 'url' property
+    const widgetsToUpdate = [];
 
-    // Update widget A
-    updates.push(
-      miro.board.widgets.update({
+    if ('url' in widgetA) {
+      widgetsToUpdate.push({
         id: widgetA.id,
-        clientVisible: true, // Ensure the widget is visible
-        url: linkB, // Add hyperlink to widget B
-      })
-    );
+        url: linkB,
+      });
+    } else {
+      miro.showNotification('Selected widget A does not support hyperlinks.');
+    }
 
-    // Update widget B
-    updates.push(
-      miro.board.widgets.update({
+    if ('url' in widgetB) {
+      widgetsToUpdate.push({
         id: widgetB.id,
-        clientVisible: true,
         url: linkA,
-      })
-    );
+      });
+    } else {
+      miro.showNotification('Selected widget B does not support hyperlinks.');
+    }
 
-    // Execute the updates
-    await Promise.all(updates);
+    if (widgetsToUpdate.length === 0) {
+      miro.showError('Neither widget supports hyperlinks.');
+      return;
+    }
+
+    // Update widgets with the hyperlinks
+    await miro.board.widgets.update(widgetsToUpdate);
 
     miro.showNotification('Bidirectional link created!');
   }
