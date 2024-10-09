@@ -1,45 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Miro Bi-Directional Linker</title>
-  <script src="https://miro.com/app/static/sdk/v2/miro.js"></script> <!-- Miro SDK -->
+    <title>Bi-directional Linker</title>
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
 </head>
 <body>
-  <h1>Miro Bi-Directional Linker App</h1>
-  <p>Select two objects on your Miro board, and they will be linked together automatically.</p>
+<script>
+    async function linkObjects() {
+        // Get selected widgets
+        const widgets = await miro.board.getSelection();
 
-  <script>
-    // This script listens for selections and links the objects bi-directionally.
+        if (widgets.length === 2) {
+            const [widgetA, widgetB] = widgets;
+
+            // Create a line from A to B
+            await miro.board.createLine({
+                startWidgetId: widgetA.id,
+                endWidgetId: widgetB.id
+            });
+
+            // Create a line from B to A
+            await miro.board.createLine({
+                startWidgetId: widgetB.id,
+                endWidgetId: widgetA.id
+            });
+        } else {
+            miro.showNotification('Please select exactly two objects.');
+        }
+    }
+
     miro.onReady(() => {
-        miro.addListener(miro.enums.event.SELECTION_UPDATED, async (event) => {
-            const selectedWidgets = event.data;
-            if (selectedWidgets.length == 2) {
-                let widgetA = selectedWidgets[0];
-                let widgetB = selectedWidgets[1];
-
-                // Get widget IDs and generate links
-                let linkA = `https://miro.com/app/board/${miro.board.id}/?moveToWidget=${widgetA.id}`;
-                let linkB = `https://miro.com/app/board/${miro.board.id}/?moveToWidget=${widgetB.id}`;
-
-                // Update widget A to link to widget B
-                await miro.board.widgets.update({
-                    id: widgetA.id,
-                    text: `${widgetA.text}\n\n[Link to B](${linkB})`
-                });
-
-                // Update widget B to link to widget A
-                await miro.board.widgets.update({
-                    id: widgetB.id,
-                    text: `${widgetB.text}\n\n[Link to A](${linkA})`
-                });
-
-                miro.showNotification('Objects linked bi-directionally');
+        // Initialize the app and register the shortcut
+        miro.initialize({
+            extensionPoints: {
+                shortcuts: [
+                    {
+                        shortcut: 'Ctrl+Shift+X',
+                        macShortcut: 'Cmd+Shift+X',
+                        action: linkObjects
+                    }
+                ]
             }
         });
     });
-  </script>
+</script>
 </body>
 </html>
-
