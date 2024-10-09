@@ -1,30 +1,33 @@
+// HTML File (index.html)
+/*
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Bidirectional Linker</title>
-  <script src="https://miro.com/app/static/sdk/v2/miro.js/></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    #linkButton {
-      padding: 10px 20px;
-      font-size: 16px;
-    }
-    #instructions {
-      margin-top: 20px;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miro Bidirectional Linker</title>
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
 </head>
 <body>
-  <h1>Bidirectional Linker</h1>
-  <button id="linkButton">Create Bidirectional Link</button>
-  <div id="instructions">
-    Or press <strong>Ctrl + Shift + X</strong> to create a bidirectional link between selected objects.
-  </div>
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
+*/
+
+// Manifest File (manifest.json)
+/*
+{
+  "appName": "Bidirectional Linker",
+  "scope": "boards:write",
+  "redirectUris": [
+    "https://github.com/kudos152/miro-bidirectional-linker"
+  ],
+  "extensionPoints": {
+    "bottomBar": {
+      "title": "Link Objects Bidirectionally",
+      "svgIcon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M10 3h4v2h-4zm1 7h2v2h-2zm0 7h2v2h-2z\"/></svg>",
+      "script": "app.js"
+    }
+  }
+}
+*/
