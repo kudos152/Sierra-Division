@@ -1,0 +1,25 @@
+{
+  "name": "Bi-directional Linker",
+  "icon": "https://kudos152.io/miro-bidirectional-linker/icon.png",
+  "baseUrl": "https://kudos152.github.io/miro-bidirectional-linker",
+  "authentication": {
+    "type": "none"
+  },
+  "permissions": [
+    "board:read",
+    "board:write"
+  ],
+  "sdkVersion": "2.0.0",
+  "extensionPoints": {
+    "appWidget": {
+      "url": "index.html"
+    },
+    "shortcuts": [
+      {
+        "shortcut": "Ctrl+Shift+X",
+        "macShortcut": "Cmd+Shift+X",
+        "action": "default"
+      }
+    ]
+  }
+}
