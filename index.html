@@ -1,40 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Bi-directional Linker</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bidirectional Linker</title>
     <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
-</head>
-<body>
-<script>
-    async function linkObjects() {
-        // Get selected widgets
-        const widgets = await miro.board.getSelection();
-
-        if (widgets.length === 2) {
-            const [widgetA, widgetB] = widgets;
-
-            // Create a line from A to B
-            await miro.board.widgets.create({
-                type: 'line',
-                startWidgetId: widgetA.id,
-                endWidgetId: widgetB.id
-            });
-
-            // Create a line from B to A
-            await miro.board.widgets.create({
-                type: 'line',
-                startWidgetId: widgetB.id,
-                endWidgetId: widgetA.id
-            });
-        } else {
-            miro.showErrorNotification('Please select exactly two objects.');
-        }
-    }
-
-    miro.onReady(() => {
-        // Listen for the custom shortcut action
-        miro.addListener('shortcut:linkObjects', linkObjects);
-    });
-</script>
-</body>
+    <script src="app.js"></script>
+  </head>
+  <body></body>
 </html>
