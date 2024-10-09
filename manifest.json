@@ -1,0 +1,10 @@
+{
+  "appId": "your-app-id",
+  "version": "1.0.0",
+  "title": "Bidirectional Linker",
+  "description": "Link two selected objects bidirectionally with a keyboard shortcut.",
+  "icon": "icon.png",
+  "permissions": ["boards:read", "boards:write"],
+  "sdk": "2.0.0",
+  "start": "index.html"
+}
