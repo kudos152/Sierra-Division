@@ -1,0 +1,7 @@
+{
+  "appName": "Bi-Directional Linker",
+  "scope": ["boards:read", "boards:write"],
+  "redirectUris": ["https://yourdomain.com/callback"],
+  "permissions": ["READ", "WRITE"],
+  "sdkVersion": "2"
+}
