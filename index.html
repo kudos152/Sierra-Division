@@ -14,34 +14,26 @@
             const [widgetA, widgetB] = widgets;
 
             // Create a line from A to B
-            await miro.board.createLine({
+            await miro.board.widgets.create({
+                type: 'line',
                 startWidgetId: widgetA.id,
                 endWidgetId: widgetB.id
             });
 
             // Create a line from B to A
-            await miro.board.createLine({
+            await miro.board.widgets.create({
+                type: 'line',
                 startWidgetId: widgetB.id,
                 endWidgetId: widgetA.id
             });
         } else {
-            miro.showNotification('Please select exactly two objects.');
+            miro.showErrorNotification('Please select exactly two objects.');
         }
     }
 
     miro.onReady(() => {
-        // Initialize the app and register the shortcut
-        miro.initialize({
-            extensionPoints: {
-                shortcuts: [
-                    {
-                        shortcut: 'Ctrl+Shift+X',
-                        macShortcut: 'Cmd+Shift+X',
-                        action: linkObjects
-                    }
-                ]
-            }
-        });
+        // Listen for the custom shortcut action
+        miro.addListener('shortcut:linkObjects', linkObjects);
     });
 </script>
 </body>
